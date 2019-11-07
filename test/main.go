@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/m_quadra/kameria"
 )
@@ -16,6 +17,7 @@ func main() {
 	fmt.Println(ipv4Num, "->", ipv4Str, err)
 
 	structTagMapTest()
+	errorPrinterTest()
 }
 
 func structTagMapTest() {
@@ -44,4 +46,12 @@ func structTagMapTest() {
 			fmt.Println("???", k, "fail")
 		}
 	}
+}
+
+func errorPrinterTest() {
+	fmt.Println("\nTest:", "HasError(err error) bool")
+
+	timeStr := "1970-01-01 08:00:00"
+	_, err := time.Parse("2006-01-02 15:04:051", timeStr)
+	kameria.HasError(err)
 }

@@ -1,17 +1,59 @@
 package kameria
 
-// Max2Int larger value
-func Max2Int(x, y int) int {
-	if x > y {
-		return x
+//Max4Int return max ∈ [min, max]
+func Max4Int(a, b int) int {
+	if a < b {
+		return b
 	}
-	return y
+	return a
 }
 
-// Max2Int64 larger value
-func Max2Int64(x, y int64) int64 {
-	if x > y {
-		return x
+//Max4Int64 return max ∈ [min, max]
+func Max4Int64(a, b int64) int64 {
+	if a < b {
+		return b
 	}
-	return y
+	return a
+}
+
+//Min4Int return min ∈ [min, max]
+func Min4Int(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+
+//Min4Int64 return min ∈ [min, max]
+func Min4Int64(a, b int64) int64 {
+	if a < b {
+		return a
+	}
+	return b
+}
+
+//Limit4Int return mid ∈ [min, max]
+func Limit4Int(min, mid, max int) int {
+	if min > max {
+		min ^= max
+		max ^= min
+		min ^= max
+	}
+
+	mid = Max4Int(min, mid)
+	mid = Min4Int(mid, max)
+	return mid
+}
+
+//Limit4Int64 return mid ∈ [min, max]
+func Limit4Int64(min, mid, max int) int64 {
+	if min > max {
+		min ^= max
+		max ^= min
+		min ^= max
+	}
+
+	mid = Max4Int(min, mid)
+	mid = Min4Int(mid, max)
+	return mid
 }
