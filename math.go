@@ -46,14 +46,14 @@ func Limit4Int(min, mid, max int) int {
 }
 
 //Limit4Int64 return mid ∈ [min, max]
-func Limit4Int64(min, mid, max int) int64 {
+func Limit4Int64(min, mid, max int64) int64 {
 	if min > max {
 		min ^= max
 		max ^= min
 		min ^= max
 	}
 
-	mid = Max4Int(min, mid)
-	mid = Min4Int(mid, max)
+	mid = Max4Int64(min, mid)
+	mid = Max4Int64(mid, max)
 	return mid
 }

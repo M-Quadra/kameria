@@ -18,10 +18,11 @@ func main() {
 
 	structTagMapTest()
 	errorPrinterTest()
+	mathCmpTest()
 }
 
 func structTagMapTest() {
-	fmt.Println("\nStructTagMap(tag string, model interface{}) (map[string]interface{}, error)")
+	fmt.Println("\nstructTagMapTest......")
 
 	type tsModel struct {
 		KeyName string `dbkey:"key1"`
@@ -49,9 +50,18 @@ func structTagMapTest() {
 }
 
 func errorPrinterTest() {
-	fmt.Println("\nTest:", "HasError(err error) bool")
+	fmt.Println("\nerrorPrinterTest......")
 
 	timeStr := "1970-01-01 08:00:00"
 	_, err := time.Parse("2006-01-02 15:04:051", timeStr)
 	kameria.HasError(err)
+}
+
+func mathCmpTest() {
+	fmt.Println("\nmathCmpTest......")
+
+	fmt.Println("kameria.Max4Int(1, 3)\t\t", kameria.Max4Int(1, 3))
+	fmt.Println("kameria.Min4Int(1, 5)\t\t", kameria.Min4Int(1, 5))
+	fmt.Println("kameria.Limit4Int(1, 12, 6)\t", kameria.Limit4Int(1, 12, 6))
+	fmt.Println("kameria.Limit4Int(1, -12, 6)\t", kameria.Limit4Int(1, -12, 6))
 }
