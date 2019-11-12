@@ -19,10 +19,11 @@ func main() {
 	structTagMapTest()
 	errorPrinterTest()
 	mathCmpTest()
+	unique4Test()
 }
 
 func structTagMapTest() {
-	fmt.Println("\nstructTagMapTest......")
+	fmt.Println("\nStruct Tag Map Test......")
 
 	type tsModel struct {
 		KeyName string `dbkey:"key1"`
@@ -50,7 +51,7 @@ func structTagMapTest() {
 }
 
 func errorPrinterTest() {
-	fmt.Println("\nerrorPrinterTest......")
+	fmt.Println("\nError Printer Test......")
 
 	timeStr := "1970-01-01 08:00:00"
 	_, err := time.Parse("2006-01-02 15:04:051", timeStr)
@@ -58,10 +59,22 @@ func errorPrinterTest() {
 }
 
 func mathCmpTest() {
-	fmt.Println("\nmathCmpTest......")
+	fmt.Println("\nMath Cmp Test......")
 
 	fmt.Println("kameria.Max4Int(1, 3)\t\t", kameria.Max4Int(1, 3))
 	fmt.Println("kameria.Min4Int(1, 5)\t\t", kameria.Min4Int(1, 5))
 	fmt.Println("kameria.Limit4Int(1, 12, 6)\t", kameria.Limit4Int(1, 12, 6))
 	fmt.Println("kameria.Limit4Int(1, -12, 6)\t", kameria.Limit4Int(1, -12, 6))
+}
+
+func unique4Test() {
+	fmt.Println("\nUnique 4 Test......")
+
+	tsStrAry := []string{"app", "google", "m$", "m$", "m$", "m$", "noDieBook"}
+	tsIntAry := []int{9700, 9800, 9900, 7920, 7920, 7920, 7920}
+	tsInt64Ary := []int64{3700, 3800, 3900, 3950, 3950, 3950, 3950}
+
+	fmt.Println("kameria.Unique4String\t", kameria.Unique4String(tsStrAry))
+	fmt.Println("kameria.Unique4Int\t", kameria.Unique4Int(tsIntAry))
+	fmt.Println("kameria.Unique4Int64\t", kameria.Unique4int64(tsInt64Ary))
 }
