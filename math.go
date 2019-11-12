@@ -35,9 +35,7 @@ func Min4Int64(a, b int64) int64 {
 //Limit4Int return mid ∈ [min, max]
 func Limit4Int(min, mid, max int) int {
 	if min > max {
-		min ^= max
-		max ^= min
-		min ^= max
+		min, max = max, min
 	}
 
 	mid = Max4Int(min, mid)
@@ -48,9 +46,7 @@ func Limit4Int(min, mid, max int) int {
 //Limit4Int64 return mid ∈ [min, max]
 func Limit4Int64(min, mid, max int64) int64 {
 	if min > max {
-		min ^= max
-		max ^= min
-		min ^= max
+		min, max = max, min
 	}
 
 	mid = Max4Int64(min, mid)
