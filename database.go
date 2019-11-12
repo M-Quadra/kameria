@@ -4,8 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"reflect"
-	"strconv"
-	"strings"
 	"unsafe"
 )
 
@@ -16,17 +14,13 @@ func StructTagMap(tag string, model interface{}) (map[string]interface{}, error)
 		return nil, errors.New("need pointer")
 	}
 
-	addrStr := fmt.Sprintf("%p", model)
-	addrStr = strings.Replace(addrStr, "0x", "", 1)
-	ptrUint64, err := strconv.ParseUint(addrStr, 16, 64)
+	firstAddr, err := uintptrAddress(model)
 	if err != nil {
 		return nil, err
 	}
 
-	firstAddr := uintptr(ptrUint64)
-	elem := rv.Elem()
-
 	tagMap := map[string]interface{}{}
+	elem := rv.Elem()
 
 	for i := 0; i < elem.NumField(); i++ {
 		field := elem.Type().Field(i)
