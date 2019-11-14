@@ -50,6 +50,6 @@ func Limit4Int64(min, mid, max int64) int64 {
 	}
 
 	mid = Max4Int64(min, mid)
-	mid = Max4Int64(mid, max)
+	mid = Min4Int64(mid, max)
 	return mid
 }
