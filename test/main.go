@@ -20,6 +20,7 @@ func main() {
 	errorPrinterTest()
 	mathCmpTest()
 	unique4Test()
+	queue4Test()
 }
 
 func structTagMapTest() {
@@ -77,4 +78,15 @@ func unique4Test() {
 	fmt.Println("kameria.Unique4String\t", kameria.Unique4String(tsStrAry))
 	fmt.Println("kameria.Unique4Int\t", kameria.Unique4Int(tsIntAry))
 	fmt.Println("kameria.Unique4Int64\t", kameria.Unique4int64(tsInt64Ary))
+}
+
+func queue4Test() {
+	fmt.Println("\nQueue 4 Test......")
+
+	que := kameria.Queue4String{}
+	que.Push("AMD")
+	que.Push("YES")
+	for !que.Empty() {
+		fmt.Println(que.Pop())
+	}
 }
