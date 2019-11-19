@@ -14,7 +14,7 @@ func StructTagMap(tag string, model interface{}) (map[string]interface{}, error)
 func HasError(err error) bool
 ```
 
-错误检查与打印, 追溯1层
+错误检查与打印, 追溯3层
 
 ```
 func IPv4StringToInt(ipStr string) (int64, error)
