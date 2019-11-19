@@ -36,7 +36,6 @@ type Queue4String struct {
 //Push add a new value
 func (slf *Queue4String) Push(v string) {
 	slf.queue.push(v)
-	// fmt.Println(slf.ary)
 }
 
 //Pop remove and return first value

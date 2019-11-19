@@ -1,13 +1,51 @@
 package kameria
 
-import "math"
+import (
+	"math"
+	"sort"
+)
 
-//Max4Int return max ∈ [min, max]
-func Max4Int(a, b int) int {
-	if a < b {
-		return b
+//Min4Int default 0
+func Min4Int(elems ...int) int {
+	if len(elems) <= 0 {
+		return 0
 	}
-	return a
+
+	sort.Ints(elems)
+	return elems[0]
+}
+
+//Min4Int64 return min ∈ [min, max]
+func Min4Int64(a, b int64) int64 {
+	if a < b {
+		return a
+	}
+	return b
+}
+
+//Min4Float32 return min ∈ [min, max]
+func Min4Float32(a, b float32) float32 {
+	return float32(math.Min(float64(a), float64(b)))
+}
+
+//Min4String dictionary order
+func Min4String(elems ...string) string {
+	if len(elems) <= 0 {
+		return ""
+	}
+
+	sort.Strings(elems)
+	return elems[0]
+}
+
+//Max4Int default 0
+func Max4Int(elems ...int) int {
+	if len(elems) <= 0 {
+		return 0
+	}
+
+	sort.Ints(elems)
+	return elems[len(elems)-1]
 }
 
 //Max4Int64 return max ∈ [min, max]
@@ -23,25 +61,11 @@ func Max4Float32(a, b float32) float32 {
 	return float32(math.Max(float64(a), float64(b)))
 }
 
-//Min4Int return min ∈ [min, max]
-func Min4Int(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
-}
-
-//Min4Int64 return min ∈ [min, max]
-func Min4Int64(a, b int64) int64 {
-	if a < b {
-		return a
-	}
-	return b
-}
-
-//Min4Float32 return min ∈ [min, max]
-func Min4Float32(a, b float32) float32 {
-	return float32(math.Min(float64(a), float64(b)))
+//Max4String dictionary order
+func Max4String(a, b string) string {
+	ary := []string{a, b}
+	sort.Strings(ary)
+	return ary[1]
 }
 
 //Limit4Int return mid ∈ [min, max]

@@ -30,7 +30,21 @@ func IPv4IntToString(ipInt int64) (string, error)
 10进制地址转`IPv4`三点数表示法
 
 ```
-func Max4Int(a, b int) int
+func Min4Int(elems ...int) int
+func Min4Int64(a, b int64) int64
+func Min4Float32(a, b float32) float32
+```
+
+取较小值
+
+```
+func Min4String(elems ...string) string
+```
+
+取字典序最小值
+
+```
+func Max4Int(elems ...int) int
 func Max4Int64(a, b int64) int64
 func Max4Float32(a, b float32) float32
 ```
@@ -38,12 +52,10 @@ func Max4Float32(a, b float32) float32
 取较大值
 
 ```
-func Min4Int(a, b int) int
-func Min4Int64(a, b int64) int64
-func Min4Float32(a, b float32) float32
+func Max4String(a, b string) string
 ```
 
-取较小值
+取字典序较大值
 
 ```
 func Limit4Int(min, mid, max int) int
