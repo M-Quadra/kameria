@@ -28,7 +28,7 @@ func Min4Float32(a, b float32) float32 {
 	return float32(math.Min(float64(a), float64(b)))
 }
 
-//Min4String dictionary order
+//Min4String dictionary order, default ""
 func Min4String(elems ...string) string {
 	if len(elems) <= 0 {
 		return ""
@@ -61,11 +61,14 @@ func Max4Float32(a, b float32) float32 {
 	return float32(math.Max(float64(a), float64(b)))
 }
 
-//Max4String dictionary order
-func Max4String(a, b string) string {
-	ary := []string{a, b}
-	sort.Strings(ary)
-	return ary[1]
+//Max4String dictionary order, default ""
+func Max4String(elems ...string) string {
+	if len(elems) <= 0 {
+		return ""
+	}
+
+	sort.Strings(elems)
+	return elems[len(elems)-1]
 }
 
 //Limit4Int return mid ∈ [min, max]

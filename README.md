@@ -52,10 +52,10 @@ func Max4Float32(a, b float32) float32
 取较大值
 
 ```
-func Max4String(a, b string) string
+func Max4String(elems ...string) string
 ```
 
-取字典序较大值
+取字典序最大值
 
 ```
 func Limit4Int(min, mid, max int) int

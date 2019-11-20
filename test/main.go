@@ -62,10 +62,13 @@ func errorPrinterTest() {
 func mathCmpTest() {
 	fmt.Println("\nMath Cmp Test......")
 
-	fmt.Println("kameria.Max4Int(1, 3)\t\t", kameria.Max4Int(1, 3))
 	fmt.Println("kameria.Min4Int(1, 5)\t\t", kameria.Min4Int(1, 5))
+	fmt.Println("kameria.Max4Int(1, 3)\t\t", kameria.Max4Int(1, 3))
 	fmt.Println("kameria.Limit4Int(1, 12, 6)\t", kameria.Limit4Int(1, 12, 6))
 	fmt.Println("kameria.Limit4Int(1, -12, 6)\t", kameria.Limit4Int(1, -12, 6))
+
+	fmt.Println("kameria.Min4String(\"AMD\", \"Intel\")", kameria.Min4String("AMD", "Intel"))
+	fmt.Println("kameria.Max4String(\"AMD\", \"Intel\")", kameria.Max4String("AMD", "Intel"))
 }
 
 func unique4Test() {
