@@ -21,6 +21,10 @@ func main() {
 	mathCmpTest()
 	unique4Test()
 	queue4Test()
+
+	dayTimerTest()
+	for { //for Test
+	}
 }
 
 func structTagMapTest() {
@@ -92,4 +96,28 @@ func queue4Test() {
 	for !que.Empty() {
 		fmt.Println(que.Pop())
 	}
+}
+
+func dayTimerTest() {
+	fmt.Println("\ndayTimer Test......")
+
+	nowTime := time.Now()
+	nowTime = nowTime.Add(time.Second * 1)
+
+	dayTimer := kameria.DayTimer{
+		Hour:   nowTime.Hour(),
+		Minute: nowTime.Minute(),
+		Second: nowTime.Second(),
+		Handler: func() {
+			fmt.Println("DayTimer running ~_~")
+		},
+		IsRepeat: true,
+	}
+	dayTimer.Start()
+
+	ctm := time.NewTimer(time.Second * 10)
+	go func() {
+		<-ctm.C
+		dayTimer.Cancel()
+	}()
 }

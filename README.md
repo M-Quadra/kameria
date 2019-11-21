@@ -85,3 +85,9 @@ Queue4String{}
 ```
 
 string队列
+
+```
+DayTimer{}
+```
+
+每日任务定时器
