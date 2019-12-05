@@ -40,8 +40,8 @@ func (slf *DayTimer) Start() {
 
 	slf.wannaCancel = false
 	if slf.ticker == nil {
-		// slf.ticker = time.NewTicker(24 * time.Hour)
-		slf.ticker = time.NewTicker(1 * time.Second)
+		slf.ticker = time.NewTicker(24 * time.Hour)
+		// slf.ticker = time.NewTicker(1 * time.Second)
 	}
 	if slf.fstTimer != nil {
 		return
