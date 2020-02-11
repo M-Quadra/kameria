@@ -97,3 +97,9 @@ func JSONStrToMap(jsonStr string) (map[string]interface{}, error)
 ```
 
 json 转 map[string]interface{}
+
+```
+func Int2String(i interface{}, base int) string
+```
+
+int 转 string, 内置了类型判断

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"time"
 
 	"github.com/m_quadra/kameria"
@@ -16,6 +17,7 @@ func main() {
 	ipv4Str, err = kameria.IPv4IntToString(ipv4Num)
 	fmt.Println(ipv4Num, "->", ipv4Str, err)
 
+	int2StringTest()
 	structTagMapTest()
 	errorPrinterTest()
 	mathCmpTest()
@@ -25,6 +27,19 @@ func main() {
 	dayTimerTest()
 	for { //for Test
 	}
+}
+
+func int2StringTest() {
+	v1 := int(3990)
+	v2 := int8(8)
+	v3 := int16(16)
+	v4 := int32(32)
+	v5 := int64(64)
+	fmt.Println(kameria.Int2String(v1, 10))
+	fmt.Println(kameria.Int2String(v2, 10))
+	fmt.Println(kameria.Int2String(v3, 10))
+	fmt.Println(kameria.Int2String(v4, 10))
+	fmt.Println(kameria.Int2String(v5, 10))
 }
 
 func structTagMapTest() {
@@ -110,14 +125,16 @@ func dayTimerTest() {
 		Second: nowTime.Second(),
 		Handler: func() {
 			fmt.Println("DayTimer running ~_~")
+			rand.Seed(time.Now().UnixNano())
+			fmt.Println(rand.Intn(10))
 		},
 		IsRepeat: true,
 	}
 	dayTimer.Start()
 
-	ctm := time.NewTimer(time.Second * 10)
-	go func() {
-		<-ctm.C
-		dayTimer.Cancel()
-	}()
+	// ctm := time.NewTimer(time.Second * 10)
+	// go func() {
+	// 	<-ctm.C
+	// 	dayTimer.Cancel()
+	// }()
 }
