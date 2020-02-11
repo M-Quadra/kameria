@@ -91,3 +91,9 @@ DayTimer{}
 ```
 
 每日任务定时器
+
+```
+func JSONStrToMap(jsonStr string) (map[string]interface{}, error)
+```
+
+json 转 map[string]interface{}
