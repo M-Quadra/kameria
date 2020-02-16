@@ -19,7 +19,6 @@ func main() {
 
 	int2StringTest()
 	structTagMapTest()
-	errorPrinterTest()
 	mathCmpTest()
 	unique4Test()
 	queue4Test()
@@ -58,7 +57,7 @@ func structTagMapTest() {
 	fmt.Println("needMap:", needMap)
 
 	tagMap, err := kameria.StructTagMap("dbkey", &model)
-	if kameria.HasError(err) {
+	if err != nil {
 		fmt.Println(".StructTagMap error")
 	} else {
 		fmt.Println(" tagMap:", tagMap)
@@ -68,14 +67,6 @@ func structTagMapTest() {
 			fmt.Println("???", k, "fail")
 		}
 	}
-}
-
-func errorPrinterTest() {
-	fmt.Println("\nError Printer Test......")
-
-	timeStr := "1970-01-01 08:00:00"
-	_, err := time.Parse("2006-01-02 15:04:051", timeStr)
-	kameria.HasError(err)
 }
 
 func mathCmpTest() {
