@@ -11,38 +11,8 @@ import (
 func main() {
 	fmt.Println("kameria の test")
 
-	structTagMapTest()
-
 	dayTimerTest()
 	for { //for Test
-	}
-}
-
-func structTagMapTest() {
-	fmt.Println("\nStruct Tag Map Test......")
-
-	type tsModel struct {
-		KeyName string `dbkey:"key1"`
-		KeyUser string `dbkey:"key2"`
-	}
-
-	var model tsModel
-	needMap := map[string]interface{}{
-		"key1": &model.KeyName,
-		"key2": &model.KeyUser,
-	}
-	fmt.Println("needMap:", needMap)
-
-	tagMap, err := kameria.StructTagMap("dbkey", &model)
-	if err != nil {
-		fmt.Println(".StructTagMap error")
-	} else {
-		fmt.Println(" tagMap:", tagMap)
-	}
-	for k, v := range tagMap {
-		if needMap[k] != v {
-			fmt.Println("???", k, "fail")
-		}
 	}
 }
 
