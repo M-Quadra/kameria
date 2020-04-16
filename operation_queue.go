@@ -9,9 +9,11 @@ type OperationQueue struct {
 	rw sync.RWMutex
 	wg sync.WaitGroup
 
+	funcChan  chan func()
+	countChan chan int
+
 	runningCount                int
 	maxConcurrentOperationCount int
-	taskAry                     []func()
 }
 
 // Wait blocks until the WaitGroup counter is zero.
@@ -20,8 +22,8 @@ func (slf *OperationQueue) Wait() {
 }
 
 // MaxConcurrentOperationCount cnt >= 1
-// get when cnt is empty
-// set when cnt has value
+//  Get when cnt is empty
+//  Set when cnt has value
 func (slf *OperationQueue) MaxConcurrentOperationCount(cnt ...int) int {
 	if len(cnt) <= 0 {
 		slf.rw.RLock()
@@ -44,52 +46,52 @@ func (slf *OperationQueue) MaxConcurrentOperationCount(cnt ...int) int {
 	return newVal
 }
 
-// AddOperation add task
-func (slf *OperationQueue) AddOperation(fc func()) {
-	slf.rw.RLock()
-	nowNum := slf.runningCount
-	limNum := slf.maxConcurrentOperationCount
-	slf.rw.RUnlock()
+func (slf *OperationQueue) init() {
+	slf.funcChan = make(chan func())
+	slf.countChan = make(chan int)
+	go func() {
+		for cnt := range slf.countChan {
+			slf.rw.Lock()
+			slf.runningCount -= cnt
+			if slf.runningCount >= slf.maxConcurrentOperationCount {
+				slf.rw.Unlock()
+				return
+			}
 
-	if nowNum < limNum {
-		slf.rw.Lock()
-		slf.runningCount++
-		slf.rw.Unlock()
-		slf.wg.Add(1)
-		go func() {
-			defer slf.wg.Done()
+			slf.runningCount++
+			slf.rw.Unlock()
 
-			fc()
-			slf.didFinishOne()
-		}()
-		return
-	}
-
-	slf.rw.Lock()
-	slf.taskAry = append(slf.taskAry, fc)
-	slf.rw.Unlock()
+			fc := <-slf.funcChan
+			go func() {
+				fc()
+				slf.wg.Done()
+				slf.countChan <- 1
+			}()
+		}
+	}()
 }
 
-func (slf *OperationQueue) didFinishOne() {
+// AddOperation add task
+func (slf *OperationQueue) AddOperation(fc func()) {
+	slf.wg.Add(1)
+
 	slf.rw.Lock()
+	if slf.funcChan == nil {
+		slf.init()
+	}
 
-	slf.runningCount--
-
-	nowNum := slf.runningCount
-	limNum := slf.maxConcurrentOperationCount
-	lstNum := len(slf.taskAry)
-	if lstNum <= 0 || nowNum >= limNum {
+	if slf.runningCount >= slf.maxConcurrentOperationCount {
 		slf.rw.Unlock()
+		slf.funcChan <- fc
 		return
 	}
 
-	fc := slf.taskAry[0]
-	if fc == nil {
-		slf.rw.Unlock()
-		return
-	}
-
-	slf.taskAry = slf.taskAry[1:]
+	slf.runningCount++
 	slf.rw.Unlock()
-	slf.AddOperation(fc)
+
+	go func() {
+		fc()
+		slf.wg.Done()
+		slf.countChan <- 1
+	}()
 }
