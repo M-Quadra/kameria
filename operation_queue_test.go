@@ -12,8 +12,18 @@ func TestOperationQueue(t *testing.T) {
 	lim := 10000
 
 	que := OperationQueue{}
-	que.MaxConcurrentOperationCount(10)
+	que.MaxConcurrentOperationCount(900)
 	fmt.Println("maxConcurrentOperationCount:", que.MaxConcurrentOperationCount())
+	for i := 0; i < lim; i++ {
+		que.AddOperation(func() {
+			rw.Lock()
+			defer rw.Unlock()
+
+			num++
+		})
+	}
+
+	que.MaxConcurrentOperationCount(100)
 	for i := 0; i < lim; i++ {
 		que.AddOperation(func() {
 			rw.Lock()
@@ -25,7 +35,8 @@ func TestOperationQueue(t *testing.T) {
 
 	que.Wait()
 	fmt.Println("num:", num)
-	if num != lim {
+
+	if num != lim*2 {
 		t.Fail()
 	}
 }

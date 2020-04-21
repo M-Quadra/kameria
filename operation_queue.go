@@ -55,7 +55,7 @@ func (slf *OperationQueue) init() {
 			slf.runningCount -= cnt
 			if slf.runningCount >= slf.maxConcurrentOperationCount {
 				slf.rw.Unlock()
-				return
+				continue
 			}
 
 			slf.runningCount++
