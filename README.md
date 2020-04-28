@@ -81,12 +81,6 @@ Queue4String{}
 string队列
 
 ```
-DayTimer{}
-```
-
-每日任务定时器
-
-```
 func JSONStrToMap(jsonStr string) (map[string]interface{}, error)
 ```
 
@@ -99,5 +93,9 @@ func Int2String(i interface{}, base int) string
 int 转 string, 内置了类型判断
 
 # 其他
+
+[通用设置](.Document/config.md)
+
+[日常定时器](.Document/day_ticker.md)
 
 [任务队列](./Document/operation_queue.md)
