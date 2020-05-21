@@ -1,9 +1,9 @@
 package kameria
 
 import (
-	"fmt"
 	"sync"
 	"testing"
+	"time"
 )
 
 func TestOperationQueue(t *testing.T) {
@@ -13,7 +13,6 @@ func TestOperationQueue(t *testing.T) {
 
 	que := OperationQueue{}
 	que.MaxConcurrentOperationCount(900)
-	fmt.Println("maxConcurrentOperationCount:", que.MaxConcurrentOperationCount())
 	for i := 0; i < lim; i++ {
 		que.AddOperation(func() {
 			rw.Lock()
@@ -22,8 +21,12 @@ func TestOperationQueue(t *testing.T) {
 			num++
 		})
 	}
-
 	que.MaxConcurrentOperationCount(100)
+	que.Wait()
+	que.Close()
+
+	que = OperationQueue{}
+	que.MaxConcurrentOperationCount(200)
 	for i := 0; i < lim; i++ {
 		que.AddOperation(func() {
 			rw.Lock()
@@ -32,11 +35,37 @@ func TestOperationQueue(t *testing.T) {
 			num++
 		})
 	}
-
 	que.Wait()
-	fmt.Println("num:", num)
+	que.Close()
 
-	if num != lim*2 {
+	que2 := &OperationQueue{}
+	que2.MaxConcurrentOperationCount(100)
+	for i := 0; i < lim; i++ {
+		que2.AddOperation(func() {
+			rw.Lock()
+			defer rw.Unlock()
+
+			num++
+		})
+	}
+	que2.MaxConcurrentOperationCount(10)
+	que2.Wait()
+	que2.Close(true)
+
+	que2 = &OperationQueue{}
+	for i := 0; i < lim; i++ {
+		que2.AddOperation(func() {
+			rw.Lock()
+			defer rw.Unlock()
+
+			num++
+		})
+	}
+	que2.Wait()
+	que2.Close()
+
+	time.Sleep(time.Duration(1) * time.Second)
+	if num != lim*4 {
 		t.Fail()
 	}
 }
