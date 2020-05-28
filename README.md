@@ -92,6 +92,12 @@ func Int2String(i interface{}, base int) string
 
 int 转 string, 内置了类型判断
 
+```
+func Arabic2NumStr(arabic string) string
+```
+
+阿拉伯-印度文数字`۰۱۲۳۴۵۶۷۸۹`转`0123456789`
+
 # 其他
 
 [通用设置](.Document/config.md)
