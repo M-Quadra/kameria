@@ -8,3 +8,10 @@ func TestArabic2NumStr(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestTibetan2NumStr(t *testing.T) {
+	tsStr := "༠༡༢༣༤༥༦༧༨༩"
+	if Tibetan2NumStr(tsStr) != "0123456789" {
+		t.Fail()
+	}
+}

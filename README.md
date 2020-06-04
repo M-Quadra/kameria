@@ -98,6 +98,12 @@ func Arabic2NumStr(arabic string) string
 
 阿拉伯-印度文数字`۰۱۲۳۴۵۶۷۸۹`转`0123456789`
 
+```
+func Tibetan2NumStr(arabic string) string
+```
+
+藏文数字`༠༡༢༣༤༥༦༧༨༩`转`0123456789`
+
 # 其他
 
 [通用设置](.Document/config.md)
