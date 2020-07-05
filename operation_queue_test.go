@@ -1,12 +1,16 @@
 package kameria
 
 import (
+	"math/rand"
+	"runtime"
 	"sync"
 	"testing"
 	"time"
 )
 
 func TestOperationQueue(t *testing.T) {
+	rand.Seed(time.Now().UnixNano())
+
 	rw := sync.RWMutex{}
 	num := 0
 	lim := 10000
@@ -15,57 +19,29 @@ func TestOperationQueue(t *testing.T) {
 	que.MaxConcurrentOperationCount(900)
 	for i := 0; i < lim; i++ {
 		que.AddOperation(func() {
+			time.Sleep(time.Duration(rand.Intn(10000)) * time.Nanosecond)
 			rw.Lock()
 			defer rw.Unlock()
 
 			num++
 		})
-	}
-	que.MaxConcurrentOperationCount(100)
-	que.Wait()
-	que.Close()
-
-	que = OperationQueue{}
-	que.MaxConcurrentOperationCount(200)
-	for i := 0; i < lim; i++ {
-		que.AddOperation(func() {
-			rw.Lock()
-			defer rw.Unlock()
-
-			num++
-		})
+		go que.MaxConcurrentOperationCount(rand.Intn(900))
 	}
 	que.Wait()
-	que.Close()
 
-	que2 := &OperationQueue{}
-	que2.MaxConcurrentOperationCount(100)
-	for i := 0; i < lim; i++ {
-		que2.AddOperation(func() {
-			rw.Lock()
-			defer rw.Unlock()
-
-			num++
-		})
+	if num != lim {
+		t.Fail()
 	}
-	que2.MaxConcurrentOperationCount(10)
-	que2.Wait()
-	que2.Close(true)
+}
 
-	que2 = &OperationQueue{}
-	for i := 0; i < lim; i++ {
-		que2.AddOperation(func() {
-			rw.Lock()
-			defer rw.Unlock()
-
-			num++
-		})
+func TestOperationQueueLoop(t *testing.T) {
+	stGoroutineNum := runtime.NumGoroutine()
+	for i := 0; i < 10; i++ {
+		TestOperationQueue(t)
 	}
-	que2.Wait()
-	que2.Close()
 
-	time.Sleep(time.Duration(1) * time.Second)
-	if num != lim*4 {
+	time.Sleep(time.Second)
+	if runtime.NumGoroutine() != stGoroutineNum {
 		t.Fail()
 	}
 }
