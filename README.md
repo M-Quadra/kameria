@@ -1,6 +1,12 @@
 # kameria
 
-闭门造毂, 乃不知有轮
+闭门造毂, 乃不知有轮, 胡乱弄了些代码
+
+前途一片黑暗, 不知道未来还能不能养得起房东, 心好累
+
+> 阿库娅大人说: "今天能养得起房东就今天养吧，反正明天也不一定养得起。就算养不起了，那也是世界的错！"
+> 
+> 我老婆说: "我讨厌的事有三件『办不到、好累、好麻烦』这三句话非常不好, 会抹杀人类所拥有的无限可能。"
 
 ```
 func StructTagMap(tag string, model interface{}) (map[string]interface{}, error)
@@ -103,6 +109,12 @@ func Tibetan2NumStr(arabic string) string
 ```
 
 藏文数字`༠༡༢༣༤༥༦༧༨༩`转`0123456789`
+
+```
+func Href2Url(href, baseURL string) string
+```
+
+`href`转完整的`url`
 
 # 其他
 
