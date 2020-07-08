@@ -15,6 +15,8 @@ type OperationQueue struct {
 
 // Wait blocks until the WaitGroup counter is zero.
 func (slf *OperationQueue) Wait() {
+	slf.rw.Lock()
+	defer slf.rw.Unlock()
 	slf.wg.Wait()
 }
 

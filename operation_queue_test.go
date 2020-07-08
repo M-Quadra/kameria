@@ -25,7 +25,13 @@ func TestOperationQueue(t *testing.T) {
 
 			num++
 		})
-		go que.MaxConcurrentOperationCount(rand.Intn(900))
+
+		if rand.Intn(2) == 0 {
+			go que.MaxConcurrentOperationCount(rand.Intn(900))
+		}
+		if rand.Intn(2) == 0 {
+			go que.Wait()
+		}
 	}
 	que.Wait()
 

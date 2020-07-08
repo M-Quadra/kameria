@@ -8,6 +8,10 @@
 > 
 > 我老婆说: "我讨厌的事有三件『办不到、好累、好麻烦』这三句话非常不好, 会抹杀人类所拥有的无限可能。"
 
+只要我不看框架, 就不知道有什么框架, 撒, 一狗
+
+# 胡闹
+
 ```
 func StructTagMap(tag string, model interface{}) (map[string]interface{}, error)
 ```
