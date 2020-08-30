@@ -120,6 +120,12 @@ func Href2Url(href, baseURL string) string
 
 `href`转完整的`url`
 
+```
+func Float2String(i interface{}) string
+```
+
+浮点数转字符串, 格式为`'f'`
+
 # 其他
 
 [通用设置](./Document/config.md)
