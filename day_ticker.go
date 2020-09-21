@@ -94,7 +94,7 @@ func (slf *DayTicker) Next() time.Time {
 }
 
 func (slf *DayTicker) needTime() time.Time {
-	t := time.Unix(time.Now().Unix(), 0).In(TimeLocation)
+	t := time.Unix(time.Now().Unix(), 0)
 	t = t.Add(-time.Duration(t.Hour()) * time.Hour)
 	t = t.Add(-time.Duration(t.Minute()) * time.Minute)
 	t = t.Add(-time.Duration(t.Second()) * time.Second)
