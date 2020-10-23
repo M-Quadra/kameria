@@ -126,6 +126,18 @@ func Float2String(i interface{}) string
 
 浮点数转字符串, 格式为`'f'`
 
+```
+func SoftmaxFloat64(ary []float64) []float64
+```
+
+softmax
+
+```
+func AvgFloat64(ary []float64) float64
+```
+
+avg
+
 # 其他
 
 [通用设置](./Document/config.md)

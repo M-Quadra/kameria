@@ -107,3 +107,39 @@ func Limit4Float64(min, mid, max float64) float64 {
 	mid = math.Min(mid, nMax)
 	return mid
 }
+
+// SoftmaxFloat64 softmax
+func SoftmaxFloat64(ary []float64) []float64 {
+	if ary == nil {
+		return nil
+	}
+	if len(ary) <= 0 {
+		return []float64{}
+	}
+
+	optAry := []float64{}
+
+	sum := 0.0
+	for i, v := range ary {
+		optAry = append(optAry, math.Exp(v))
+		sum += optAry[i]
+	}
+	for i := range optAry {
+		optAry[i] /= sum
+	}
+	return optAry
+}
+
+// AvgFloat64 avg
+func AvgFloat64(ary []float64) float64 {
+	if len(ary) <= 0 {
+		return 0
+	}
+
+	lenF := float64(len(ary))
+	avg := 0.0
+	for _, v := range ary {
+		avg += v / float64(lenF)
+	}
+	return avg
+}
