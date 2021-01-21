@@ -52,14 +52,14 @@ func (slf *OperationQueue) MaxConcurrentOperationCount(cnt ...int) int {
 	return newVal
 }
 
-// AddOperation add task
-func (slf *OperationQueue) AddOperation(fc func()) {
+// Add add operation
+func (slf *OperationQueue) Add(operation func()) {
 	slf.rw.RLock()
 	defer slf.rw.RUnlock()
 
 	cnt := slf.maxGoroutineNum
 	if cnt <= 0 {
-		fc()
+		operation()
 		return
 	}
 
@@ -68,7 +68,7 @@ func (slf *OperationQueue) AddOperation(fc func()) {
 	go func() {
 		defer slf.wg.Done()
 
-		fc()
+		operation()
 		<-slf.infoChan
 	}()
 }

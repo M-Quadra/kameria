@@ -18,7 +18,7 @@ func TestOperationQueue(t *testing.T) {
 	que := OperationQueue{}
 	que.MaxConcurrentOperationCount(900)
 	for i := 0; i < lim; i++ {
-		que.AddOperation(func() {
+		que.Add(func() {
 			time.Sleep(time.Duration(rand.Intn(10000)) * time.Nanosecond)
 			rw.Lock()
 			defer rw.Unlock()

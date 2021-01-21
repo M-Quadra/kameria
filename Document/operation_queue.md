@@ -11,7 +11,7 @@
 无值时Get, 有值时Set
 
 ```
-.AddOperation(fc func())
+.Add(operation func())
 ```
 添加任务, 当并行数不足时会阻塞, 并行数为`0`时同步执行
 
