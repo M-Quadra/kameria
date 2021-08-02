@@ -77,14 +77,6 @@ func uintptrAddress(v interface{}) (uintptr, error)
 获取元素指针地址值, 暂不开放
 
 ```
-func Unique4String(iptAry []string) []string
-func Unique4Int(iptAry []int) []int
-func Unique4int64(iptAry []int64) []int64
-```
-
-数组去重
-
-```
 Queue4String{}
 ```
 
@@ -131,6 +123,16 @@ func AvgFloat64(ary []float64) float64
 ```
 
 avg
+
+# Unique
+
+## 切片去重
+
+```
+kameria.Unique.Ints(x []int) []int
+kameria.Unique.Int64s(x []int64) []int64
+kameria.Unique.Strings(x []string) []string
+```
 
 # 其他
 

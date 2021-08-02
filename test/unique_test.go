@@ -1,8 +1,10 @@
-package kameria
+package main
 
 import (
 	"fmt"
 	"testing"
+
+	"github.com/M-Quadra/kameria"
 )
 
 func TestUnique(t *testing.T) {
@@ -17,21 +19,24 @@ func TestUnique(t *testing.T) {
 	int64IptAry := []int64{3700, 3800, 3900, 3950, 3950, 3950, 3950}
 	int64OptAry := []int64{3700, 3800, 3900, 3950}
 
-	for i, v := range Unique4String(strIptAry) {
+	for i, v := range kameria.Unique.Strings(strIptAry) {
 		if strOptAry[i] != v {
 			t.Fail()
+			return
 		}
 	}
 
-	for i, v := range Unique4Int(intIptAry) {
+	for i, v := range kameria.Unique.Ints(intIptAry) {
 		if intOptAry[i] != v {
 			t.Fail()
+			return
 		}
 	}
 
-	for i, v := range Unique4int64(int64IptAry) {
+	for i, v := range kameria.Unique.Int64s(int64IptAry) {
 		if int64OptAry[i] != v {
 			t.Fail()
+			return
 		}
 	}
 }
