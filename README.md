@@ -34,34 +34,6 @@ func IPv4IntToString(ipInt int64) (string, error)
 10进制地址转`IPv4`三点数表示法
 
 ```
-func Min4Int(elems ...int) int
-func Min4Int64(a, b int64) int64
-func Min4Float32(a, b float32) float32
-```
-
-取较小值
-
-```
-func Min4String(elems ...string) string
-```
-
-取字典序最小值
-
-```
-func Max4Int(elems ...int) int
-func Max4Int64(a, b int64) int64
-func Max4Float32(a, b float32) float32
-```
-
-取较大值
-
-```
-func Max4String(elems ...string) string
-```
-
-取字典序最大值
-
-```
 func Limit4Int(min, mid, max int) int
 func Limit4Int64(min, mid, max int64) int64
 func Limit4Float32(min, mid, max float32) float32
@@ -141,3 +113,5 @@ kameria.Unique.Strings(x []string) []string
 [日常定时器](./Document/day_ticker.md)
 
 [任务队列](./Document/operation_queue.md)
+
+[k-math](./Document/k_math.md)

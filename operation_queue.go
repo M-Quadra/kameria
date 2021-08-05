@@ -2,6 +2,8 @@ package kameria
 
 import (
 	"sync"
+
+	kmath "github.com/M-Quadra/kameria/k-math"
 )
 
 // OperationQueue task queue
@@ -28,10 +30,10 @@ func (slf *OperationQueue) MaxConcurrentOperationCount(cnt ...int) int {
 		slf.rw.RLock()
 		val := slf.maxGoroutineNum
 		slf.rw.RUnlock()
-		return Max4Int(0, val)
+		return kmath.Max.Ints(0, val)
 	}
 
-	newVal := Max4Int(0, cnt[0])
+	newVal := kmath.Max.Ints(0, cnt[0])
 
 	slf.rw.Lock()
 	defer slf.rw.Unlock()

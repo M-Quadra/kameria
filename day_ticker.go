@@ -3,6 +3,8 @@ package kameria
 import (
 	"sync"
 	"time"
+
+	kmath "github.com/M-Quadra/kameria/k-math"
 )
 
 // DayTicker once every day
@@ -87,7 +89,7 @@ func (slf *DayTicker) Next() time.Time {
 		needTime = needTime.Add(24 * time.Hour)
 	}
 
-	len := Max4Int64(1000000000, needTime.UnixNano()-nowTime.UnixNano())
+	len := kmath.Max.Int64s(1000000000, needTime.UnixNano()-nowTime.UnixNano())
 	tm := time.NewTimer(time.Duration(len))
 	<-tm.C
 	return needTime
