@@ -2,13 +2,16 @@ package kmath
 
 import (
 	"reflect"
+	"time"
 )
 
-// Max for ...{int|int64|string|float32|float64}
-type Max int
+type max int
+
+// Max for ...{int|int64|string|float32|float64|time.Time}
+const Max = max(0)
 
 // Any x must be Array, Chan, Map, Slice, or String
-func (m Max) Any(x interface{}, less func(a, b interface{}) bool) interface{} {
+func (m max) Any(x interface{}, less func(a, b interface{}) bool) interface{} {
 	if x == nil {
 		return nil
 	}
@@ -29,7 +32,7 @@ func (m Max) Any(x interface{}, less func(a, b interface{}) bool) interface{} {
 }
 
 // Ints default 0
-func (m Max) Ints(x ...int) int {
+func (m max) Ints(x ...int) int {
 	if len(x) <= 0 {
 		return 0
 	}
@@ -41,7 +44,7 @@ func (m Max) Ints(x ...int) int {
 }
 
 // Int64s default 0
-func (m Max) Int64s(x ...int64) int64 {
+func (m max) Int64s(x ...int64) int64 {
 	if len(x) <= 0 {
 		return 0
 	}
@@ -53,7 +56,7 @@ func (m Max) Int64s(x ...int64) int64 {
 }
 
 // Strings default ""
-func (m Max) Strings(x ...string) string {
+func (m max) Strings(x ...string) string {
 	if len(x) <= 0 {
 		return ""
 	}
@@ -65,7 +68,7 @@ func (m Max) Strings(x ...string) string {
 }
 
 // Float32s default 0
-func (m Max) Float32s(x ...float32) float32 {
+func (m max) Float32s(x ...float32) float32 {
 	if len(x) <= 0 {
 		return 0
 	}
@@ -77,7 +80,7 @@ func (m Max) Float32s(x ...float32) float32 {
 }
 
 // Float64s default 0
-func (m Max) Float64s(x ...float64) float64 {
+func (m max) Float64s(x ...float64) float64 {
 	if len(x) <= 0 {
 		return 0
 	}
@@ -86,4 +89,16 @@ func (m Max) Float64s(x ...float64) float64 {
 		return a.(float64) < b.(float64)
 	})
 	return v.(float64)
+}
+
+// Times default time.Time{}
+func (m max) Times(x ...time.Time) time.Time {
+	if len(x) <= 0 {
+		return time.Time{}
+	}
+
+	v := m.Any(x, func(a, b interface{}) bool {
+		return a.(time.Time).Before(b.(time.Time))
+	})
+	return v.(time.Time)
 }

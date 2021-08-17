@@ -1,12 +1,17 @@
 package kmath
 
-import "reflect"
+import (
+	"reflect"
+	"time"
+)
 
-// Min for ...{int|int64|string|float32|float64}
-type Min int
+type min int
+
+// Min for ...{int|int64|string|float32|float64|time.Time}
+const Min = min(0)
 
 // Any x must be Array, Chan, Map, Slice, or String
-func (m Min) Any(x interface{}, large func(a, b interface{}) bool) interface{} {
+func (m min) Any(x interface{}, large func(a, b interface{}) bool) interface{} {
 	if x == nil {
 		return nil
 	}
@@ -27,7 +32,7 @@ func (m Min) Any(x interface{}, large func(a, b interface{}) bool) interface{} {
 }
 
 // Ints default 0
-func (m Min) Ints(x ...int) int {
+func (m min) Ints(x ...int) int {
 	if len(x) <= 0 {
 		return 0
 	}
@@ -39,7 +44,7 @@ func (m Min) Ints(x ...int) int {
 }
 
 // Int64s default 0
-func (m Min) Int64s(x ...int64) int64 {
+func (m min) Int64s(x ...int64) int64 {
 	if len(x) <= 0 {
 		return 0
 	}
@@ -51,7 +56,7 @@ func (m Min) Int64s(x ...int64) int64 {
 }
 
 // Strings default ""
-func (m Min) Strings(x ...string) string {
+func (m min) Strings(x ...string) string {
 	if len(x) <= 0 {
 		return ""
 	}
@@ -63,7 +68,7 @@ func (m Min) Strings(x ...string) string {
 }
 
 // Float32s default 0
-func (m Min) Float32s(x ...float32) float32 {
+func (m min) Float32s(x ...float32) float32 {
 	if len(x) <= 0 {
 		return 0
 	}
@@ -75,7 +80,7 @@ func (m Min) Float32s(x ...float32) float32 {
 }
 
 // Float64s default 0
-func (m Min) Float64s(x ...float64) float64 {
+func (m min) Float64s(x ...float64) float64 {
 	if len(x) <= 0 {
 		return 0
 	}
@@ -84,4 +89,16 @@ func (m Min) Float64s(x ...float64) float64 {
 		return a.(float64) > b.(float64)
 	})
 	return v.(float64)
+}
+
+// Times default time.Time{}
+func (m min) Times(x ...time.Time) time.Time {
+	if len(x) <= 0 {
+		return time.Time{}
+	}
+
+	v := m.Any(x, func(a, b interface{}) bool {
+		return a.(time.Time).After(b.(time.Time))
+	})
+	return v.(time.Time)
 }
