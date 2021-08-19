@@ -46,3 +46,24 @@ kmath.Min.Any(x interface{}, large func(a, b interface{}) bool) interface{}
 ```
 
 判断方式为`>`, 没有走`math.Min`
+
+# 求和
+
+```
+kameria.Math.Sum(x interface{}) interface{}
+
+kmath.Sum.Ints(x []int) int
+kmath.Sum.Int64s(x []int64) int64
+kmath.Sum.Float32s(x []float32) float32
+kmath.Sum.Float64s(x []float64) float64
+```
+
+使用统一的类型, 不考虑越界, 有特殊需求使用`Reduce`
+
+# Reduce
+
+```
+kmath.Reduce(x interface{}, init interface{}, next func(result, elem interface{}) interface{}) interface{}
+```
+
+序列遍历计算, 想法来自`Swift`高阶函数, 后面似乎得挪个地方

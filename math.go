@@ -2,6 +2,7 @@ package kameria
 
 import (
 	mathOld "math"
+	"reflect"
 	"time"
 
 	kmath "github.com/M-Quadra/kameria/k-math"
@@ -80,6 +81,36 @@ func (m math) Min(x ...interface{}) interface{} {
 	case time.Time:
 		return kmath.Min.Any(x, func(a, b interface{}) bool {
 			return a.(time.Time).After(b.(time.Time))
+		})
+	}
+
+	return nil
+}
+
+// only support for []{int|int64|float32|float64}
+//  default nil
+func (m math) Sum(x interface{}) interface{} {
+	rv := reflect.ValueOf(x)
+	if rv.Len() <= 0 {
+		return nil
+	}
+
+	switch rv.Index(0).Interface().(type) {
+	case int:
+		return kmath.Reduce(x, int(0), func(result, elem interface{}) interface{} {
+			return result.(int) + elem.(int)
+		}).(int)
+	case int64:
+		return kmath.Reduce(x, int64(0), func(result, elem interface{}) interface{} {
+			return result.(int64) + elem.(int64)
+		})
+	case float32:
+		return kmath.Reduce(x, float32(0), func(result, elem interface{}) interface{} {
+			return result.(float32) + elem.(float32)
+		})
+	case float64:
+		return kmath.Reduce(x, float64(0), func(result, elem interface{}) interface{} {
+			return result.(float64) + elem.(float64)
 		})
 	}
 
