@@ -90,12 +90,6 @@ func SoftmaxFloat64(ary []float64) []float64
 
 softmax
 
-```
-func AvgFloat64(ary []float64) float64
-```
-
-avg
-
 # Unique
 
 ## 切片去重
