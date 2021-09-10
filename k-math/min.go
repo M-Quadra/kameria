@@ -5,10 +5,10 @@ import (
 	"time"
 )
 
-type min int
+type min struct{}
 
 // Min for ...{int|int64|string|float32|float64|time.Time}
-const Min = min(0)
+var Min = min{}
 
 // Any x must be Array, Chan, Map, Slice, or String
 func (m min) Any(x interface{}, large func(a, b interface{}) bool) interface{} {

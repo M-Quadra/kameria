@@ -4,10 +4,10 @@ import (
 	"reflect"
 )
 
-type unique int
+type unique struct{}
 
 // Unique support []string, []int, []int64
-const Unique = unique(0)
+var Unique = unique{}
 
 func (u unique) unique(x interface{}) map[interface{}]struct{} {
 	rv := reflect.ValueOf(x)

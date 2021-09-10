@@ -5,10 +5,10 @@ import (
 	"time"
 )
 
-type max int
+type max struct{}
 
 // Max for ...{int|int64|string|float32|float64|time.Time}
-const Max = max(0)
+var Max = max{}
 
 // Any x must be Array, Chan, Map, Slice, or String
 func (m max) Any(x interface{}, less func(a, b interface{}) bool) interface{} {

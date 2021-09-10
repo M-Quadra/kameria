@@ -6,12 +6,12 @@ import "reflect"
 //   note init's Type
 func Reduce(x interface{}, init interface{}, next func(result, elem interface{}) interface{}) interface{} {
 	if x == nil {
-		return nil
+		return init
 	}
 
 	rv := reflect.ValueOf(x)
 	if rv.Len() <= 0 {
-		return nil
+		return init
 	}
 
 	for i := 0; i < rv.Len(); i++ {

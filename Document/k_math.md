@@ -67,3 +67,16 @@ kmath.Reduce(x interface{}, init interface{}, next func(result, elem interface{}
 ```
 
 序列遍历计算, 想法来自`Swift`高阶函数, 后面似乎得挪个地方
+
+# 算术平均值
+
+```
+kameria.Math.Mean(x interface{}) float64
+
+kmath.Mean.Ints(x []int) float64
+kmath.Mean.Int64s(x []int64) float64
+kmath.Mean.Float32s(x []float32) float64
+kmath.Mean.Float64s(x []float64) float64
+```
+
+使用`Reduce`实现, 默认0

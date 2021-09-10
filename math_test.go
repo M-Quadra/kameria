@@ -53,10 +53,3 @@ func TestSoftmaxFloat64(t *testing.T) {
 		t.Fail()
 	}
 }
-
-func TestAvgFloat64(t *testing.T) {
-	avg := AvgFloat64([]float64{1, 2, 3, 4, 5})
-	if avg != 3 {
-		t.Fail()
-	}
-}

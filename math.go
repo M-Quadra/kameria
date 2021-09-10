@@ -8,10 +8,10 @@ import (
 	kmath "github.com/M-Quadra/kameria/k-math"
 )
 
-type math int
+type math struct{}
 
 // Math for call kmath func simply without type
-const Math = math(0)
+var Math = math{}
 
 // only support for ...{int|int64|string|float32|float64|time.Time}
 //  default nil
@@ -117,6 +117,37 @@ func (m math) Sum(x interface{}) interface{} {
 	return nil
 }
 
+// only support for []{int|int64|float32|float64}
+//  default 0
+func (m math) Mean(x interface{}) float64 {
+	rv := reflect.ValueOf(x)
+	l := rv.Len()
+	if l <= 0 {
+		return 0
+	}
+
+	switch rv.Index(0).Interface().(type) {
+	case int:
+		return kmath.Reduce(x, float64(0), func(result, elem interface{}) interface{} {
+			return result.(float64) + float64(elem.(int))/float64(l)
+		}).(float64)
+	case int64:
+		return kmath.Reduce(x, float64(0), func(result, elem interface{}) interface{} {
+			return result.(float64) + float64(elem.(int64))/float64(l)
+		}).(float64)
+	case float32:
+		return kmath.Reduce(x, float64(0), func(result, elem interface{}) interface{} {
+			return result.(float64) + float64(elem.(float32))/float64(l)
+		}).(float64)
+	case float64:
+		return kmath.Reduce(x, float64(0), func(result, elem interface{}) interface{} {
+			return result.(float64) + elem.(float64)/float64(l)
+		}).(float64)
+	}
+
+	return 0
+}
+
 //Limit4Int return mid ∈ [min, max]
 func Limit4Int(min, mid, max int) int {
 	if min > max {
@@ -174,18 +205,4 @@ func SoftmaxFloat64(ary []float64) []float64 {
 		optAry[i] /= sum
 	}
 	return optAry
-}
-
-// AvgFloat64 avg
-func AvgFloat64(ary []float64) float64 {
-	if len(ary) <= 0 {
-		return 0
-	}
-
-	lenF := float64(len(ary))
-	avg := 0.0
-	for _, v := range ary {
-		avg += v / float64(lenF)
-	}
-	return avg
 }
