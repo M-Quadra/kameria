@@ -102,8 +102,6 @@ kameria.Unique.Strings(x []string) []string
 
 # 其他
 
-[通用设置](./Document/config.md)
-
 [日常定时器](./Document/day_ticker.md)
 
 [任务队列](./Document/operation_queue.md)
