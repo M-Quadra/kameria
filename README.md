@@ -90,6 +90,14 @@ func SoftmaxFloat64(ary []float64) []float64
 
 softmax
 
+## []interface{}转化
+
+```
+kameria.SliceToInterfaces(slice interface{}) []interface{}
+```
+
+失败时返回nil
+
 # Unique
 
 ## 切片去重
