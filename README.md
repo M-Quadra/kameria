@@ -115,3 +115,5 @@ kameria.Unique.Strings(x []string) []string
 [任务队列](./Document/operation_queue.md)
 
 [k-math](./Document/k_math.md)
+
+[algorithm](./Document/algorithm.md)
