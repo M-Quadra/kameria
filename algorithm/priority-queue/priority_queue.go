@@ -41,7 +41,7 @@ func (pq PriorityQueue) Top() interface{} {
 		return nil
 	}
 
-	return pq.sub.slicePtr.Elem().Index(0)
+	return pq.sub.slicePtr.Elem().Index(0).Interface()
 }
 
 // New need point of sliceP

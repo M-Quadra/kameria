@@ -25,6 +25,8 @@ func TestPriorityQueue(t *testing.T) {
 	pq, _ = priorityqueue.New(&arr, func(i, j int) bool {
 		return arr[i] > arr[j]
 	})
+
+	assert.Equal(t, arrB[0], pq.Top())
 	for _, v := range arrB {
 		assert.Equal(t, v, pq.Pop())
 	}
