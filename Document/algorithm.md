@@ -1,6 +1,8 @@
 # algorithm
 
-为了刷题时想用`STL`省事, 于是对部分功能进行拙劣的模仿
+为了刷题时想用`STL`省事, 于是对部分功能进行拙劣的模仿。
+
+为了调用直观, 似乎应该把package直接换成`std`?
 
 ## 仿 std::reverse
 
@@ -34,3 +36,11 @@ pq.Top() interface{}
 ```
 
 `.Pop()`多了返回值, 其余没啥变化
+
+## 仿 std::lower_bound or std::upper_bound
+
+```
+algorithm.BinaryBound(first, last int, comp func(middle int) bool) int
+```
+
+由于go并没有运算符重载, 想要开放比较方法。如此一来, `std::lower_bound`与`std::upper_bound`就相互显得有些重复了, 故将二者合并。
