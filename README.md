@@ -115,3 +115,5 @@ kameria.Unique.Strings(x []string) []string
 [k-math](./Document/k_math.md)
 
 [algorithm](./Document/algorithm.md)
+
+[[]byte 转 fs.FS](./virtual-fs/fs_test.go)
