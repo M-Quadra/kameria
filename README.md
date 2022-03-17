@@ -59,18 +59,6 @@ func JSONStrToMap(jsonStr string) (map[string]interface{}, error)
 json 转 map[string]interface{}
 
 ```
-func Arabic2NumStr(arabic string) string
-```
-
-阿拉伯-印度文数字`۰۱۲۳۴۵۶۷۸۹`转`0123456789`
-
-```
-func Tibetan2NumStr(arabic string) string
-```
-
-藏文数字`༠༡༢༣༤༥༦༧༨༩`转`0123456789`
-
-```
 func Href2Url(href, baseURL string) string
 ```
 
