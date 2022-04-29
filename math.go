@@ -15,43 +15,6 @@ var Math = math{}
 
 // only support for ...{int|int64|string|float32|float64|time.Time}
 //  default nil
-func (m math) Max(x ...interface{}) interface{} {
-	if len(x) <= 0 {
-		return nil
-	}
-
-	switch x[0].(type) {
-	case int:
-		return kmath.Max.Any(x, func(a, b interface{}) bool {
-			return a.(int) < b.(int)
-		})
-	case int64:
-		return kmath.Max.Any(x, func(a, b interface{}) bool {
-			return a.(int64) < b.(int64)
-		})
-	case string:
-		return kmath.Max.Any(x, func(a, b interface{}) bool {
-			return a.(string) < b.(string)
-		})
-	case float32:
-		return kmath.Max.Any(x, func(a, b interface{}) bool {
-			return a.(float32) < b.(float32)
-		})
-	case float64:
-		return kmath.Max.Any(x, func(a, b interface{}) bool {
-			return a.(float64) < b.(float64)
-		})
-	case time.Time:
-		return kmath.Max.Any(x, func(a, b interface{}) bool {
-			return a.(time.Time).Before(b.(time.Time))
-		})
-	}
-
-	return nil
-}
-
-// only support for ...{int|int64|string|float32|float64|time.Time}
-//  default nil
 func (m math) Min(x ...interface{}) interface{} {
 	if len(x) <= 0 {
 		return nil
@@ -154,7 +117,7 @@ func Limit4Int(min, mid, max int) int {
 		min, max = max, min
 	}
 
-	mid = kmath.Max.Ints(min, mid)
+	mid = kmath.Max(min, mid)
 	mid = kmath.Min.Ints(mid, max)
 	return mid
 }
@@ -165,7 +128,7 @@ func Limit4Int64(min, mid, max int64) int64 {
 		min, max = max, min
 	}
 
-	mid = kmath.Max.Int64s(min, mid)
+	mid = kmath.Max(min, mid)
 	mid = kmath.Min.Int64s(mid, max)
 	return mid
 }

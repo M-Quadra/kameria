@@ -30,10 +30,10 @@ func (slf *OperationQueue) MaxConcurrentOperationCount(cnt ...int) int {
 		slf.rw.RLock()
 		val := slf.maxGoroutineNum
 		slf.rw.RUnlock()
-		return kmath.Max.Ints(0, val)
+		return kmath.Max(0, val)
 	}
 
-	newVal := kmath.Max.Ints(0, cnt[0])
+	newVal := kmath.Max(0, cnt[0])
 
 	slf.rw.Lock()
 	defer slf.rw.Unlock()

@@ -89,7 +89,7 @@ func (slf *DayTicker) Next() time.Time {
 		needTime = needTime.Add(24 * time.Hour)
 	}
 
-	len := kmath.Max.Int64s(1000000000, needTime.UnixNano()-nowTime.UnixNano())
+	len := kmath.Max(1000000000, needTime.UnixNano()-nowTime.UnixNano())
 	tm := time.NewTimer(time.Duration(len))
 	<-tm.C
 	return needTime

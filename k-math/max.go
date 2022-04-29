@@ -1,104 +1,52 @@
 package kmath
 
 import (
-	"reflect"
+	"math"
 	"time"
+
+	"golang.org/x/exp/constraints"
 )
 
-type max struct{}
-
-// Max for ...{int|int64|string|float32|float64|time.Time}
-var Max = max{}
-
-// Any x must be Array, Chan, Map, Slice, or String
-func (m max) Any(x interface{}, less func(a, b interface{}) bool) interface{} {
-	if x == nil {
-		return nil
+// Max default T
+func Max[T constraints.Ordered](x ...T) T {
+	var opt T
+	if len(x) <= 0 {
+		return opt
 	}
+	opt = x[0]
 
-	rv := reflect.ValueOf(x)
-	if rv.Len() <= 0 {
-		return nil
-	}
-
-	maxN := rv.Index(0).Interface()
-	for i := 1; i < rv.Len(); i++ {
-		n := rv.Index(i).Interface()
-		if less(maxN, n) {
-			maxN = n
+	for _, v := range x[1:] {
+		switch any(opt).(type) {
+		case float64:
+			opt = any(math.Max(any(opt).(float64), any(v).(float64))).(T)
+		default:
+			if v > opt {
+				opt = v
+			}
 		}
 	}
-	return maxN
+	return opt
 }
 
-// Ints default 0
-func (m max) Ints(x ...int) int {
+// MaxAny default less: a<b
+func MaxAny[T any](less func(a, b T) bool, x ...T) T {
+	var opt T
 	if len(x) <= 0 {
-		return 0
+		return opt
 	}
+	opt = x[0]
 
-	v := m.Any(x, func(a, b interface{}) bool {
-		return a.(int) < b.(int)
-	})
-	return v.(int)
+	for _, v := range x[1:] {
+		if less(opt, v) {
+			opt = v
+		}
+	}
+	return opt
 }
 
-// Int64s default 0
-func (m max) Int64s(x ...int64) int64 {
-	if len(x) <= 0 {
-		return 0
-	}
-
-	v := m.Any(x, func(a, b interface{}) bool {
-		return a.(int64) < b.(int64)
-	})
-	return v.(int64)
-}
-
-// Strings default ""
-func (m max) Strings(x ...string) string {
-	if len(x) <= 0 {
-		return ""
-	}
-
-	v := m.Any(x, func(a, b interface{}) bool {
-		return a.(string) < b.(string)
-	})
-	return v.(string)
-}
-
-// Float32s default 0
-func (m max) Float32s(x ...float32) float32 {
-	if len(x) <= 0 {
-		return 0
-	}
-
-	v := m.Any(x, func(a, b interface{}) bool {
-		return a.(float32) < b.(float32)
-	})
-	return v.(float32)
-}
-
-// Float64s default 0
-func (m max) Float64s(x ...float64) float64 {
-	if len(x) <= 0 {
-		return 0
-	}
-
-	v := m.Any(x, func(a, b interface{}) bool {
-		return a.(float64) < b.(float64)
-	})
-	return v.(float64)
-}
-
-// Times default time.Time{}
-func (m max) Times(x ...time.Time) time.Time {
-	if len(x) <= 0 {
-		return time.Time{}
-	}
-
-	v := m.Any(x, func(a, b interface{}) bool {
-		return a.(time.Time).Before(b.(time.Time))
-	})
-	return v.(time.Time)
+// MaxTimes MaxAny[time.Time]
+func MaxTimes(x ...time.Time) time.Time {
+	return MaxAny(func(a, b time.Time) bool {
+		return a.Before(b)
+	}, x...)
 }

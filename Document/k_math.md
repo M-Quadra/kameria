@@ -11,24 +11,17 @@ kmath.Max.Ints(x ...int) int
 
 一是思来想去发觉没法实现, 二来`kameria.Math.Max.Type`的调用链路过长
 
-索性决定外部`kameria`使用`interface{}`, 内部`kmath`使用具体类型。（所以啥时候有泛型啊？
+泛型不是很完善, `switch`后依然过不了编译, 保留几个特定类型的方法
 
 # 最大值
 
 ```
-kameria.Math.Max(x ...interface{}) interface{}
-
-kmath.Max.Ints(x ...int) int
-kmath.Max.Int64s(x ...int64) int64
-kmath.Max.Strings(x ...string) string
-kmath.Max.Float32s(x ...float32) float32
-kmath.Max.Float64s(x ...float64) float64
-kmath.Max.Times(x ...time.Time) time.Time
-
-kmath.Max.Any(x interface{}, less func(a, b interface{}) bool) interface{}
+kmath.Max[T constraints.Ordered](x ...T) T
+kmath.MaxAny[T any](less func(a, b T) bool, x ...T) T
+kmath.MaxTimes(x ...time.Time) time.Time
 ```
 
-判断方式为`<`, 没有走`math.Max`
+判断方式为`<`, `float64`走`math.Max`
 
 # 最小值
 
