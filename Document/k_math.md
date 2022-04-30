@@ -21,24 +21,17 @@ kmath.MaxAny[T any](less func(a, b T) bool, x ...T) T
 kmath.MaxTimes(x ...time.Time) time.Time
 ```
 
-判断方式为`<`, `float64`走`math.Max`
+`less`默认`<`, `float64`走`math.Max`
 
 # 最小值
 
 ```
-kameria.Math.Min(x ...interface{}) interface{}
-
-kmath.Min.Ints(x ...int) int
-kmath.Min.Int64s(x ...int64) int64
-kmath.Min.Strings(x ...string) string
-kmath.Min.Float32s(x ...float32) float32
-kmath.Min.Float64s(x ...float64) float64
-kmath.Min.Times(x ...time.Time) time.Time
-
-kmath.Min.Any(x interface{}, large func(a, b interface{}) bool) interface{}
+kmath.Min[T constraints.Ordered](x ...T) T
+kmath.MinAny[T any](less func(a, b T) bool, x ...T) T
+kmath.MinTimes(x ...time.Time) time.Time
 ```
 
-判断方式为`>`, 没有走`math.Min`
+`less`默认`<`, `float64`走`math.Min`
 
 # 求和
 

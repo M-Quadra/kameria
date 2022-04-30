@@ -3,7 +3,6 @@ package kameria
 import (
 	mathOld "math"
 	"reflect"
-	"time"
 
 	kmath "github.com/M-Quadra/kameria/k-math"
 )
@@ -12,43 +11,6 @@ type math struct{}
 
 // Math for call kmath func simply without type
 var Math = math{}
-
-// only support for ...{int|int64|string|float32|float64|time.Time}
-//  default nil
-func (m math) Min(x ...interface{}) interface{} {
-	if len(x) <= 0 {
-		return nil
-	}
-
-	switch x[0].(type) {
-	case int:
-		return kmath.Min.Any(x, func(a, b interface{}) bool {
-			return a.(int) > b.(int)
-		})
-	case int64:
-		return kmath.Min.Any(x, func(a, b interface{}) bool {
-			return a.(int64) > b.(int64)
-		})
-	case string:
-		return kmath.Min.Any(x, func(a, b interface{}) bool {
-			return a.(string) > b.(string)
-		})
-	case float32:
-		return kmath.Min.Any(x, func(a, b interface{}) bool {
-			return a.(float32) > b.(float32)
-		})
-	case float64:
-		return kmath.Min.Any(x, func(a, b interface{}) bool {
-			return a.(float64) > b.(float64)
-		})
-	case time.Time:
-		return kmath.Min.Any(x, func(a, b interface{}) bool {
-			return a.(time.Time).After(b.(time.Time))
-		})
-	}
-
-	return nil
-}
 
 // only support for []{int|int64|float32|float64}
 //  default nil
@@ -118,7 +80,7 @@ func Limit4Int(min, mid, max int) int {
 	}
 
 	mid = kmath.Max(min, mid)
-	mid = kmath.Min.Ints(mid, max)
+	mid = kmath.Min(mid, max)
 	return mid
 }
 
@@ -129,7 +91,7 @@ func Limit4Int64(min, mid, max int64) int64 {
 	}
 
 	mid = kmath.Max(min, mid)
-	mid = kmath.Min.Int64s(mid, max)
+	mid = kmath.Min(mid, max)
 	return mid
 }
 
