@@ -8,15 +8,18 @@ import (
 )
 
 func TestReverse(t *testing.T) {
-	algorithm.Reverse(nil, 0, 2)
-	tmp := map[int]struct{}{}
-	algorithm.Reverse(tmp, 0, 2)
+	arr := []int{1, 2, 3}
 
-	ary := []int{1, 2, 3}
+	algorithm.Reverse(arr, 0, len(arr))
+	assert.Equal(t, []int{3, 2, 1}, arr)
 
-	algorithm.Reverse(&ary, 0, len(ary))
-	assert.Equal(t, []int{3, 2, 1}, ary)
+	algorithm.Reverse(arr, 1, len(arr))
+	assert.Equal(t, []int{3, 1, 2}, arr)
 
-	algorithm.Reverse(ary, 1, len(ary))
-	assert.Equal(t, []int{3, 1, 2}, ary)
+	{ // empty
+		algorithm.Reverse([]int{}, 1, len(arr))
+
+		arr = nil
+		algorithm.Reverse(arr, 1, len(arr))
+	}
 }

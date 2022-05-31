@@ -3,11 +3,11 @@ package algorithm
 import "reflect"
 
 // NextPermutation std::next_permutation
-func NextPermutation(
-	slice interface{}, first, last int,
-	less func(i, j int) bool,
+func NextPermutation[T any](
+	slice []T, first, last int,
+	less func(a, b T) bool,
 ) bool {
-	if slice = sliceCheck(slice); slice == nil || less == nil {
+	if len(slice) <= 0 || less == nil {
 		return false
 	}
 
@@ -18,9 +18,9 @@ func NextPermutation(
 
 	for swap := reflect.Swapper(slice); ; {
 		ip1 := i
-		if i--; less(i, ip1) {
+		if i--; less(slice[i], slice[ip1]) {
 			j := last - 1
-			for ; !less(i, j); j-- {
+			for ; !less(slice[i], slice[j]); j-- {
 			}
 			swap(i, j)
 			Reverse(slice, ip1, last)

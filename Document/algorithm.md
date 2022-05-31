@@ -7,15 +7,15 @@
 ## 仿 std::reverse
 
 ```
-algorithm.Reverse(slice interface{}, first, last int)
+algorithm.Reverse[T any](slice []T, first, last int)
 ```
 
 ## 仿 std::next_permutation
 
 ```
-algorithm.NextPermutation(
-	slice interface{}, first, last int,
-	less func(i, j int) bool,
+algorithm.NextPermutation[T any](
+	slice []T, first, last int,
+	less func(a, b T) bool,
 ) bool
 ```
 
