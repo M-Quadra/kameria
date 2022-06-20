@@ -4,9 +4,9 @@ go 1.18
 
 require (
 	github.com/M-Quadra/kazaana v1.1.1
-	github.com/gin-gonic/gin v1.8.0
-	github.com/stretchr/testify v1.7.1
-	golang.org/x/exp v0.0.0-20220518171630-0b5c67f07fdf
+	github.com/gin-gonic/gin v1.8.1
+	github.com/stretchr/testify v1.7.2
+	golang.org/x/exp v0.0.0-20220613132600-b0d781184e0d
 )
 
 require (
