@@ -1,21 +1,12 @@
 package kmath
 
-import "reflect"
-
 // Reduce returns the result of combining the elements of the sequence using the given closure.
-//   note init's Type
-func Reduce(x interface{}, init interface{}, next func(result, elem interface{}) interface{}) interface{} {
-	if x == nil {
+func Reduce[E any, R any](x []E, init R, next func(result R, elem E) R) R {
+	if len(x) <= 0 {
 		return init
 	}
 
-	rv := reflect.ValueOf(x)
-	if rv.Len() <= 0 {
-		return init
-	}
-
-	for i := 0; i < rv.Len(); i++ {
-		v := rv.Index(i).Interface()
+	for _, v := range x {
 		init = next(init, v)
 	}
 	return init

@@ -2,7 +2,6 @@ package kameria
 
 import (
 	mathOld "math"
-	"reflect"
 
 	kmath "github.com/M-Quadra/kameria/k-math"
 )
@@ -11,67 +10,6 @@ type math struct{}
 
 // Math for call kmath func simply without type
 var Math = math{}
-
-// only support for []{int|int64|float32|float64}
-//  default nil
-func (m math) Sum(x interface{}) interface{} {
-	rv := reflect.ValueOf(x)
-	if rv.Len() <= 0 {
-		return nil
-	}
-
-	switch rv.Index(0).Interface().(type) {
-	case int:
-		return kmath.Reduce(x, int(0), func(result, elem interface{}) interface{} {
-			return result.(int) + elem.(int)
-		}).(int)
-	case int64:
-		return kmath.Reduce(x, int64(0), func(result, elem interface{}) interface{} {
-			return result.(int64) + elem.(int64)
-		})
-	case float32:
-		return kmath.Reduce(x, float32(0), func(result, elem interface{}) interface{} {
-			return result.(float32) + elem.(float32)
-		})
-	case float64:
-		return kmath.Reduce(x, float64(0), func(result, elem interface{}) interface{} {
-			return result.(float64) + elem.(float64)
-		})
-	}
-
-	return nil
-}
-
-// only support for []{int|int64|float32|float64}
-//  default 0
-func (m math) Mean(x interface{}) float64 {
-	rv := reflect.ValueOf(x)
-	l := rv.Len()
-	if l <= 0 {
-		return 0
-	}
-
-	switch rv.Index(0).Interface().(type) {
-	case int:
-		return kmath.Reduce(x, float64(0), func(result, elem interface{}) interface{} {
-			return result.(float64) + float64(elem.(int))/float64(l)
-		}).(float64)
-	case int64:
-		return kmath.Reduce(x, float64(0), func(result, elem interface{}) interface{} {
-			return result.(float64) + float64(elem.(int64))/float64(l)
-		}).(float64)
-	case float32:
-		return kmath.Reduce(x, float64(0), func(result, elem interface{}) interface{} {
-			return result.(float64) + float64(elem.(float32))/float64(l)
-		}).(float64)
-	case float64:
-		return kmath.Reduce(x, float64(0), func(result, elem interface{}) interface{} {
-			return result.(float64) + elem.(float64)/float64(l)
-		}).(float64)
-	}
-
-	return 0
-}
 
 //Limit4Int return mid ∈ [min, max]
 func Limit4Int(min, mid, max int) int {
