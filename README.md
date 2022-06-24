@@ -53,12 +53,6 @@ Queue4String{}
 string队列
 
 ```
-func JSONStrToMap(jsonStr string) (map[string]interface{}, error)
-```
-
-json 转 map[string]interface{}
-
-```
 func Href2Url(href, baseURL string) string
 ```
 
