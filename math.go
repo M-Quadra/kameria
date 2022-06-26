@@ -47,25 +47,3 @@ func Limit4Float64(min, mid, max float64) float64 {
 	mid = mathOld.Min(mid, nMax)
 	return mid
 }
-
-// SoftmaxFloat64 softmax
-func SoftmaxFloat64(ary []float64) []float64 {
-	if ary == nil {
-		return nil
-	}
-	if len(ary) <= 0 {
-		return []float64{}
-	}
-
-	optAry := []float64{}
-
-	sum := 0.0
-	for i, v := range ary {
-		optAry = append(optAry, mathOld.Exp(v))
-		sum += optAry[i]
-	}
-	for i := range optAry {
-		optAry[i] /= sum
-	}
-	return optAry
-}

@@ -64,12 +64,6 @@ func Float2String(i interface{}) string
 
 浮点数转字符串, 格式为`'f'`
 
-```
-func SoftmaxFloat64(ary []float64) []float64
-```
-
-softmax
-
 ## []interface{}转化
 
 ```

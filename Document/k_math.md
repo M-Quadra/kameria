@@ -47,3 +47,12 @@ kmath.Mean[T constraints.Integer | constraints.Float](x []T) float64
 ```
 
 使用`Reduce`实现, 默认0
+
+# Softmax
+
+```
+kmath.Softmax[T constraints.Float](x ...T) []T
+kmath.LogSoftmax[T constraints.Float](x ...T) []T
+```
+
+内部共享实现
