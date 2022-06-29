@@ -44,3 +44,18 @@ algorithm.BinaryBound(first, last int, comp func(middle int) bool) int
 ```
 
 由于go并没有运算符重载, 想要开放比较方法。如此一来, `std::lower_bound`与`std::upper_bound`就相互显得有些重复了, 故将二者合并。
+
+## 仿 std::queue
+
+```
+algorithm.NewQueue[T any](x ...T) Queue[T]
+
+que.Empty() bool
+que.Push(v T)
+que.Pop() T
+que.Size() int
+que.Front() T
+que.Back() T
+```
+
+内置使用`list.List`实现

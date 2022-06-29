@@ -47,12 +47,6 @@ func uintptrAddress(v interface{}) (uintptr, error)
 获取元素指针地址值, 暂不开放
 
 ```
-Queue4String{}
-```
-
-string队列
-
-```
 func Href2Url(href, baseURL string) string
 ```
 
