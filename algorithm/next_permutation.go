@@ -1,7 +1,5 @@
 package algorithm
 
-import "reflect"
-
 // NextPermutation std::next_permutation
 func NextPermutation[T any](
 	slice []T, first, last int,
@@ -16,13 +14,13 @@ func NextPermutation[T any](
 		return false
 	}
 
-	for swap := reflect.Swapper(slice); ; {
+	for {
 		ip1 := i
 		if i--; less(slice[i], slice[ip1]) {
 			j := last - 1
 			for ; !less(slice[i], slice[j]); j-- {
 			}
-			swap(i, j)
+			slice[i], slice[j] = slice[j], slice[i]
 			Reverse(slice, ip1, last)
 			return true
 		}

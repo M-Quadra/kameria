@@ -1,9 +1,8 @@
-package main
+package algorithm
 
 import (
 	"testing"
 
-	"github.com/M-Quadra/kameria/algorithm"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -17,7 +16,7 @@ func TestNextPermutation(t *testing.T) {
 		{3, 2, 1},
 		{},
 	} {
-		ok := algorithm.NextPermutation(arr, 0, len(arr), func(a, b int) bool {
+		ok := NextPermutation(arr, 0, len(arr), func(a, b int) bool {
 			return a < b
 		})
 		isFinale := len(v) <= 0
@@ -28,16 +27,16 @@ func TestNextPermutation(t *testing.T) {
 	}
 
 	{ // empty
-		ok := algorithm.NextPermutation([]int{}, 0, len(arr), func(a, b int) bool {
+		ok := NextPermutation([]int{}, 0, len(arr), func(a, b int) bool {
 			return a < b
 		})
 		assert.False(t, ok)
 
-		ok = algorithm.NextPermutation(arr, 0, len(arr), nil)
+		ok = NextPermutation(arr, 0, len(arr), nil)
 		assert.False(t, ok)
 
 		arr = nil
-		ok = algorithm.NextPermutation(arr, 0, len(arr), func(a, b int) bool {
+		ok = NextPermutation(arr, 0, len(arr), func(a, b int) bool {
 			return a < b
 		})
 		assert.False(t, ok)
