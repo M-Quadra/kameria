@@ -5,7 +5,7 @@ func NextPermutation[T any](
 	slice []T, first, last int,
 	less func(a, b T) bool,
 ) bool {
-	if len(slice) <= 0 || less == nil {
+	if len(slice) <= 1 || less == nil {
 		return false
 	}
 

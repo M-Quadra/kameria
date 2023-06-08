@@ -1,11 +1,11 @@
 module github.com/M-Quadra/kameria
 
-go 1.18
+go 1.20
 
 require (
 	github.com/gin-gonic/gin v1.9.1
-	github.com/stretchr/testify v1.8.3
-	golang.org/x/exp v0.0.0-20220613132600-b0d781184e0d
+	github.com/stretchr/testify v1.8.4
+	golang.org/x/exp v0.0.0-20230522175609-2e198f4a06a1
 )
 
 require (
