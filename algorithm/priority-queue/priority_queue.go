@@ -2,65 +2,70 @@ package priorityqueue
 
 import (
 	"container/heap"
-	"errors"
-	"reflect"
 )
 
-// PriorityQueue std::priority_queue
-type PriorityQueue struct {
-	sub subHeap
+// Queue std::priority_queue
+type Queue[T any] struct {
+	sub subHeap[T]
 }
 
 // Size len(slice)
-func (pq PriorityQueue) Size() int {
-	return pq.sub.Len()
+func (q Queue[T]) Size() int {
+	return q.sub.Len()
 }
 
 // Empty len(slice) == 0
-func (pq PriorityQueue) Empty() bool {
-	return pq.Size() <= 0
+func (q Queue[T]) IsEmpty() bool {
+	return q.Size() <= 0
 }
 
 // Push priority_queue.push(x)
-func (pq PriorityQueue) Push(x interface{}) {
-	heap.Push(pq.sub, x)
+func (q Queue[T]) Push(x T) {
+	heap.Push(q.sub, x)
 }
 
 // Pop priority_queue.pop() with result
-func (pq PriorityQueue) Pop() interface{} {
-	if pq.sub.Len() <= 0 {
-		return nil
+func (q Queue[T]) Pop() (T, bool) {
+	if q.sub.Len() <= 0 {
+		var zero T
+		return zero, false
 	}
 
-	return heap.Pop(pq.sub)
+	return heap.Pop(q.sub).(T), true
 }
 
 // Top slice[0]
-func (pq PriorityQueue) Top() interface{} {
-	if pq.sub.Len() <= 0 {
+func (q Queue[T]) Top() (T, bool) {
+	if q.sub.Len() <= 0 {
+		var zero T
+		return zero, false
+	}
+
+	return (*q.sub.slicePtr)[0], true
+}
+
+/*
+New PriorityQueue
+
+slicePtr can be nil, then it will be initialized as []T{}
+
+less can't be nil, it's the compare function
+less(i, j int) { return a[i]<b[i] } is min-heap
+*/
+func New[T any](slicePtr *[]T, less func(a, b T) bool) *Queue[T] {
+	if slicePtr == nil {
+		slicePtr = &[]T{}
+	}
+	if less == nil {
 		return nil
 	}
 
-	return pq.sub.slicePtr.Elem().Index(0).Interface()
-}
-
-// New need point of sliceP
-//  less(i, j int) { return a[i]<b[i] } is min-heap
-func New(slicePtr interface{}, less func(i, j int) bool) (*PriorityQueue, error) {
-	rv := reflect.ValueOf(slicePtr)
-	if rv.Kind() != reflect.Ptr || rv.Elem().Kind() != reflect.Slice {
-		return nil, errors.New("slicePtr must be a slice pointer")
-	}
-	if less == nil {
-		return nil, errors.New("less must not be nil")
-	}
-
-	opt := &PriorityQueue{
-		sub: subHeap{
-			slicePtr: rv,
+	q := Queue[T]{
+		sub: subHeap[T]{
+			slicePtr: slicePtr,
 			less:     less,
 		},
 	}
-	heap.Init(opt.sub)
-	return opt, nil
+	heap.Init(q.sub)
+	return &q
 }

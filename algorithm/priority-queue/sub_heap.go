@@ -2,35 +2,35 @@ package priorityqueue
 
 import (
 	"container/heap"
-	"reflect"
 )
 
-type subHeap struct {
-	heap.Interface
-
-	slicePtr reflect.Value
-	less     func(i, j int) bool
+type subHeap[T any] struct {
+	slicePtr *[]T
+	less     func(i, j T) bool
 }
 
-func (sh subHeap) Len() int {
-	return sh.slicePtr.Elem().Len()
+var _ heap.Interface = subHeap[int]{}
+
+func (sh subHeap[T]) Len() int {
+	return len(*sh.slicePtr)
 }
 
-func (sh subHeap) Swap(i, j int) {
-	reflect.Swapper(sh.slicePtr.Elem().Interface())(i, j)
+func (sh subHeap[T]) Swap(i, j int) {
+	arr := *sh.slicePtr
+	arr[i], arr[j] = arr[j], arr[i]
 }
 
-func (sh subHeap) Less(i, j int) bool {
-	return sh.less(i, j)
+func (sh subHeap[T]) Less(i, j int) bool {
+	return sh.less((*sh.slicePtr)[i], (*sh.slicePtr)[j])
 }
 
-func (sh subHeap) Push(x interface{}) {
-	slice := reflect.Append(sh.slicePtr.Elem(), reflect.ValueOf(x))
-	sh.slicePtr.Elem().Set(slice)
+func (sh subHeap[T]) Push(x any) {
+	*sh.slicePtr = append(*sh.slicePtr, x.(T))
 }
 
-func (sh subHeap) Pop() interface{} {
-	opt := sh.slicePtr.Elem().Index(sh.Len() - 1).Interface()
-	sh.slicePtr.Elem().SetLen(sh.Len() - 1)
+func (sh subHeap[T]) Pop() any {
+	arr := *sh.slicePtr
+	opt := arr[len(arr)-1]
+	*sh.slicePtr = arr[:len(arr)-1]
 	return opt
 }
