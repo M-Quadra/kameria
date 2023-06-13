@@ -12,10 +12,6 @@ func TestPriorityQueue(t *testing.T) {
 	pq := priorityqueue.New[int](nil, func(a, b int) bool {
 		return a < b
 	})
-	_, ok := pq.Pop()
-	require.False(t, ok)
-	_, ok = pq.Top()
-	require.False(t, ok)
 
 	arr := []int{}
 	pq = priorityqueue.New(&arr, func(a, b int) bool {
@@ -23,12 +19,7 @@ func TestPriorityQueue(t *testing.T) {
 	})
 	pq.Push(1)
 
-	v, ok := pq.Pop()
-	require.True(t, ok)
-	require.Equal(t, 1, v)
-
-	_, ok = pq.Pop()
-	require.False(t, ok)
+	require.Equal(t, 1, pq.Pop())
 
 	arr = []int{1, 2, 3, 4, 5, 6}
 	arrB := make([]int, len(arr))
@@ -38,11 +29,9 @@ func TestPriorityQueue(t *testing.T) {
 		return a > b
 	})
 
-	v, ok = pq.Top()
-	require.True(t, ok)
-	require.Equal(t, arrB[0], v)
-	for v, ok := pq.Pop(); ok; v, ok = pq.Pop() {
-		require.Equal(t, arrB[0], v)
+	require.Equal(t, arrB[0], pq.Top())
+	for !pq.IsEmpty() {
+		require.Equal(t, arrB[0], pq.Pop())
 		arrB = arrB[1:]
 	}
 }

@@ -25,23 +25,13 @@ func (q Queue[T]) Push(x T) {
 }
 
 // Pop priority_queue.pop() with result
-func (q Queue[T]) Pop() (T, bool) {
-	if q.sub.Len() <= 0 {
-		var zero T
-		return zero, false
-	}
-
-	return heap.Pop(q.sub).(T), true
+func (q Queue[T]) Pop() T {
+	return heap.Pop(q.sub).(T)
 }
 
 // Top slice[0]
-func (q Queue[T]) Top() (T, bool) {
-	if q.sub.Len() <= 0 {
-		var zero T
-		return zero, false
-	}
-
-	return (*q.sub.slicePtr)[0], true
+func (q Queue[T]) Top() T {
+	return (*q.sub.slicePtr)[0]
 }
 
 /*
