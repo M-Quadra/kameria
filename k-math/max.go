@@ -1,7 +1,6 @@
 package kmath
 
 import (
-	"math"
 	"time"
 
 	"golang.org/x/exp/constraints"
@@ -16,14 +15,7 @@ func Max[T constraints.Ordered](x ...T) T {
 	opt = x[0]
 
 	for _, v := range x[1:] {
-		switch any(opt).(type) {
-		case float64:
-			opt = any(math.Max(any(opt).(float64), any(v).(float64))).(T)
-		default:
-			if v > opt {
-				opt = v
-			}
-		}
+		opt = max(opt, v)
 	}
 	return opt
 }
